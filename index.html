@@ -577,10 +577,13 @@
                 <div class="checkbox-group">
                     <label class="input-item"><input type="checkbox" name="purpose" value="marketing"> 集客したい</label>
                     <label class="input-item"><input type="checkbox" name="purpose" value="sns"> SNS運用・投稿を効率化したい</label>
-                    <label class="input-item"><input type="checkbox" name="purpose" value="internal_doc"> 社内資料を作りたい</label>
+                    <label class="input-item"><input type="checkbox" name="purpose" value="customer_msg"> 提案書を作りたい</label>
                     <label class="input-item"><input type="checkbox" name="purpose" value="meeting"> 会議・議事録をラクにしたい</label>
-                    <label class="input-item"><input type="checkbox" name="purpose" value="ideation"> アイデア出ししたい</label>
+                    <label class="input-item"><input type="checkbox" name="purpose" value="internal_doc"> 社内資料を作りたい</label>
                     <label class="input-item"><input type="checkbox" name="purpose" value="manual"> マニュアル・手順書を作りたい</label>
+                    <label class="input-item"><input type="checkbox" name="purpose" value="existing_doc"> 今ある資料やPDFを活かしたい</label>
+                    <label class="input-item"><input type="checkbox" name="purpose" value="organize_thought"> 頭の中を整理・言語化したい</label>
+                    <label class="input-item"><input type="checkbox" name="purpose" value="ideation"> アイデア出ししたい</label>
                 </div>
             </div>
 
@@ -591,6 +594,7 @@
                     <label class="input-item"><input type="checkbox" id="env_google"> Googleアカウントがある</label>
                     <label class="input-item"><input type="radio" name="device" value="pc" checked> PC中心</label>
                     <label class="input-item"><input type="radio" name="device" value="mobile"> スマホ中心</label>
+                    <label class="input-item"><input type="radio" name="device" value="both"> PC・スマホ併用</label>
                 </div>
             </div>
 
@@ -696,6 +700,108 @@
                     "春のキャンペーン用チラシのデザイン構成案を作成して。",
                     "Instagramで目を引く[商品画像]の構図アイデアを5つ出して。",
                     "集客用の商品紹介ページ（LP）の画面構成案を作って。"
+                ]
+            }
+        },
+        customer_msg: {
+            gpt: {
+                scenes: ["お客様へのメール代筆", "LINE公式アカウントの返信", "提案書のあいさつ文作成"],
+                prompts: [
+                    "お客様（[お名前]様）へ、新商品[商品名]のご案内メールを作成して。親しみやすく、売り込み感が出すぎないようにして。",
+                    "LINE公式アカウントで、週末のイベント告知メッセージを書いて。絵文字を使って楽しそうな雰囲気で、文字数は200文字以内。",
+                    "見積書を送る際のメール本文を作成して。丁寧な感謝の言葉と、不明点があれば連絡ほしい旨を含めて。"
+                ]
+            },
+            gemini: {
+                scenes: ["敬語やビジネスマナーの確認", "伝わりやすい言葉への言い換え", "季節の挨拶文検索"],
+                prompts: [
+                    "この文章[文章]を、より丁寧なビジネス敬語に直して。",
+                    "「検討します」という言葉を、もっとポジティブにお客様に伝える言い回しを3つ教えて。",
+                    "10月にお客様に送る手紙の冒頭に使える、季節の挨拶文を3つ教えて。"
+                ]
+            },
+            notebooklm: {
+                scenes: ["過去の問合せ履歴の確認", "商品カタログの内容確認", "FAQの参照"],
+                prompts: [
+                    "過去のやり取り履歴から、このお客様が以前気にしていたポイントを探して。",
+                    "商品カタログ（PDF）に基づいて、この商品の保証期間についてお客様に説明する文章を作って。",
+                    "よくある質問集をもとに、この質問に対する回答案を作成して。"
+                ]
+            },
+            nanobanana: {
+                scenes: ["メッセージに添える画像作成", "LINEのリッチメニュー作成", "提案書の表紙作成"],
+                prompts: [
+                    "LINEのメッセージと一緒に送る、イベント告知用の正方形の画像イメージを作って。",
+                    "LINE公式アカウントのリッチメニュー（ボタン）のデザイン案を考えて。",
+                    "提案書の表紙画像を、誠実でクリーンなイメージで生成して。"
+                ]
+            }
+        },
+        organize_thought: {
+            gpt: {
+                scenes: ["頭の中のモヤモヤを言語化", "アイデアの壁打ち相手", "話の構成を整理"],
+                prompts: [
+                    "今、[悩み]について悩んでいます。壁打ち相手になって、私の考えが整理できるような質問を投げかけて。",
+                    "以下の箇条書きのメモを、論理的な文章に書き直して。\n[メモ]",
+                    "新しいサービスのアイデア[アイデア]について、良い点と懸念点を客観的に挙げて。"
+                ]
+            },
+            gemini: {
+                scenes: ["関連情報の検索と整理", "マインドマップ的な構造化", "類語や表現の検索"],
+                prompts: [
+                    "[キーワード]に関連する概念を、マインドマップのように構造化してリストアップして。",
+                    "この自分の考え[考え]を、もっとカッコいいキャッチコピー風に言い換えて。",
+                    "このテーマについて、一般的にはどのような分類がされているか調べて教えて。"
+                ]
+            },
+            notebooklm: {
+                scenes: ["自分の過去メモの整理", "日記や日報の振り返り", "知識の体系化"],
+                prompts: [
+                    "アップロードした過去のメモの中から、[テーマ]に関連するアイデアを全て抜き出して。",
+                    "私の日報データを分析して、最近の関心事や課題の傾向を教えて。",
+                    "この資料の内容を、他人に説明できるように3つのポイントで整理して。"
+                ]
+            },
+            nanobanana: {
+                scenes: ["アイデアの図解化", "イメージボード作成", "思考の可視化"],
+                prompts: [
+                    "私のこの複雑なアイデア[アイデア]を、一枚の絵で表現するためのラフ案を描いて。",
+                    "このコンセプトを表すムードボード（イメージ画像集）の構成案を出して。",
+                    "思考の流れを図解するための、矢印や枠の配置案を考えて。"
+                ]
+            }
+        },
+        existing_doc: {
+            gpt: {
+                scenes: ["資料のテキスト化と要約", "PDFの内容を元にしたメール作成", "古い資料の書き直し"],
+                prompts: [
+                    "この資料のテキスト[テキスト]を元に、要点を3つに絞ったメール文面を作成して。",
+                    "古い資料の文章を、現代風のわかりやすい表現にリライトして。",
+                    "この議事録の内容を、ブログ記事形式に書き直して。"
+                ]
+            },
+            gemini: {
+                scenes: ["資料内の事実確認", "関連データの補強", "最新情報との比較"],
+                prompts: [
+                    "この資料に書かれているデータ（2020年）を、最新の数値がないか調べて更新して。",
+                    "この資料の主張を裏付けるような、信頼できる統計データを検索して。",
+                    "このPDFの内容と矛盾するような最新ニュースがないか確認して。"
+                ]
+            },
+            notebooklm: {
+                scenes: ["PDF資料との対話（Q&A）", "大量の資料からの検索", "資料の音声解説化"],
+                prompts: [
+                    "アップロードしたPDF資料について質問です。[キーワード]についてはどこに書かれていますか？",
+                    "この大量の資料全体を通して、最も重要な結論は何ですか？",
+                    "この資料の内容を、ラジオ番組風に解説する台本を作って（NotebookLMの音声機能用）。"
+                ]
+            },
+            nanobanana: {
+                scenes: ["資料の図版のリメイク", "表紙の再デザイン", "スライド化"],
+                prompts: [
+                    "この文章ばかりの資料を、見やすいスライドにするための構成案（全5ページ）を作って。",
+                    "この資料の内容を表す、わかりやすいアイコンや図のイメージを提案して。",
+                    "資料の表紙を、もっと現代的でスタイリッシュなデザインにするための指示を出して。"
                 ]
             }
         },
@@ -880,6 +986,60 @@
                 ]
             }
         },
+        customer_msg: {
+            gpt: {
+                scenes: ["心理学を使った「NO」と言わせない提案メール", "クレームをファンに変える神対応返信", "成約率を高めるLINEステップ配信の設計", "心に響くお礼状の作成", "VIP客向けの特別招待状"],
+                prompts: ["役割：セールスコピーライター\n心理学のテクニック（返報性の原理など）を使って、一度断られたお客様に再度アプローチするための、押し付けがましくないメール文面を作成して。", "役割：カスタマーサクセス責任者\nお客様からの厳しいご意見（クレーム）に対して、謝罪だけでなく、信頼回復と次の提案につなげるための返信メールを作成して。"]
+            },
+            gemini: {
+                scenes: ["業界ごとの最適な敬語・マナー調査", "競合他社のメールマガジン分析", "返信率の高い件名の傾向分析", "多言語対応メールの作成支援", "最新のビジネストレンド用語チェック"],
+                prompts: ["[業界]において、お客様へのメール件名で「開封率が高い」と言われているキーワードやフレーズの傾向を調査してレポートして。", "英語圏のお客様に対して、失礼にならず、かつフレンドリーな印象を与えるビジネスメールの書き出しと結びの言葉を5パターン教えて。"]
+            },
+            notebooklm: {
+                scenes: ["過去の成功した提案書パターンの学習", "トップセールスのトークスクリプト分析", "顧客カルテからのパーソナライズ提案", "製品マニュアルに基づいた正確な回答生成", "FAQの自動更新システム"],
+                prompts: ["アップロードした過去の成約した提案書データを分析し、お客様に「刺さる」提案の共通パターンやキーワードを抽出して。", "トップセールスの商談録音データ（文字起こし）から、クロージング（契約）の際によく使っているキラーフレーズを抜き出して。"]
+            },
+            nanobanana: {
+                scenes: ["開封率を上げるHTMLメールのデザイン", "LINEリッチメッセージの画像作成", "クリックしたくなるバナー作成", "提案書の表紙・挿絵の高品質化", "お客様ごとのカスタマイズ画像生成"],
+                prompts: ["メールマガジンのヘッダー画像として使える、季節感があり、かつ[商品]の魅力が伝わるバナーのデザイン案を作成して。", "LINE公式アカウントで配信する、クーポン付きのリッチメッセージの画像を生成して。高級感のあるゴールドと黒を使って。"]
+            }
+        },
+        organize_thought: {
+            gpt: {
+                scenes: ["マンダラチャートによるアイデア展開", "ロジカルシンキング（MECE）での整理", "ソクラテス式問答法による深掘り", "ストーリーテリングによる言語化", "6つの帽子思考法による多角的検討"],
+                prompts: ["私の漠然としたアイデア[アイデア]について、マンダラチャートの形式で中心から8つの要素に分解し、さらにそれぞれを深掘りして。", "「6つの帽子思考法」を使って、この課題[課題]について、客観的・感情的・批判的・積極的・創造的・管理的の6つの視点から意見を出して。"]
+            },
+            gemini: {
+                scenes: ["類似したビジネスモデルの検索", "学術的なフレームワークの提案", "関連するキーワードのネットワーク化", "トレンドとの関連付け", "反対意見（反論）のシミュレーション"],
+                prompts: ["このビジネスアイデア[アイデア]と似ている成功事例を世界中から検索し、それらの成功要因を分析して。", "私のこの考えに対して、想定される批判や反論を5つ挙げ、それに対する論理的な反証（切り返し）を考えて。"]
+            },
+            notebooklm: {
+                scenes: ["自分の全メモからのインサイト発見", "思考の癖やパターンの分析", "読書ノートからの知識結合", "日記からのモチベーション分析", "未整理のアイデアの体系化"],
+                prompts: ["これまでの私のメモ書き全てを読み込み、私が無意識に重視している価値観やテーマを分析して教えて。", "異なる時期に書いた複数のメモを関連付け、新しいアイデアの種になりそうな組み合わせを見つけて提案して。"]
+            },
+            nanobanana: {
+                scenes: ["抽象的な概念のビジュアル化", "マインドマップの図解化", "コンセプトアートの作成", "思考プロセスのフローチャート化", "直感的なイメージボード生成"],
+                prompts: ["「[抽象的な概念]」という言葉から連想されるイメージを、シュルレアリスム風のアートとして表現して。", "私の頭の中にある複雑な構造を、誰にでもわかるようなメタファー（例え）を使った図解にするためのラフスケッチを描いて。"]
+            }
+        },
+        existing_doc: {
+            gpt: {
+                scenes: ["長文資料の要約とスライド構成案", "専門用語を小学生レベルに翻訳", "古い資料の完全リライト", "議事録からのブログ記事作成", "マニュアルからのテスト問題作成"],
+                prompts: ["この専門的な技術資料[資料テキスト]を、知識ゼロの新人アルバイトでも理解できるように、例え話を使って優しく解説する文章に書き直して。", "この長い報告書を、社長が1分で読めるように、結論・理由・具体的アクションの3点に絞った要約を作成して。"]
+            },
+            gemini: {
+                scenes: ["資料内のデータの最新化", "ファクトチェック（事実確認）", "関連ニュースの追加", "法的リスクのチェック（簡易）", "競合資料との比較分析"],
+                prompts: ["この資料に含まれる市場データ（2019年）を、Web検索を使って可能な限り最新の数値（2023-2024年）にアップデートして。", "この資料の主張に対して、ネット上で議論されている反対意見や懸念点がないかリサーチして。"]
+            },
+            notebooklm: {
+                scenes: ["社内Wikiとしての活用", "プロジェクトの歴史アーカイブ", "特定の情報の瞬時検索", "資料間の矛盾点チェック", "オーディオブック化（聞き流し学習）"],
+                prompts: ["アップロードした複数の規定集の間で、内容に矛盾や食い違いがある箇所がないかチェックして指摘して。", "このプロジェクトに関する全ての資料を読み込み、プロジェクト開始から現在までの経緯を時系列のストーリーとしてまとめて。"]
+            },
+            nanobanana: {
+                scenes: ["手書きメモの図解清書", "古い資料のデザイン刷新", "インフォグラフィック化", "アイコン・イラストの統一", "視覚的にわかりやすい比較表作成"],
+                prompts: ["この文字ばかりの比較表を、アイコンと色分けを使った直感的にわかる比較図にするためのデザイン案を出して。", "10年前に作られたこの資料のデザインを、最新のデザイントレンドを取り入れたフラットでモダンなスタイルにリメイクするための指示書を作って。"]
+            }
+        },
         default: { // Pro Default
             gpt: {
                 scenes: ["クレーム対応メールの丁寧な代筆", "契約書の簡易チェック", "複雑なプロジェクトのスケジュール表作成", "スピーチ原稿の作成", "論理的な思考の壁打ち相手"],
@@ -902,11 +1062,16 @@
 
     // Helper Functions
     function getScenarioKey(purposes) {
+        // Priority check
+        if (purposes.includes('customer_msg')) return 'customer_msg';
+        if (purposes.includes('organize_thought')) return 'organize_thought';
+        if (purposes.includes('existing_doc')) return 'existing_doc';
+        
         if (purposes.includes('sns')) return 'sns';
         if (purposes.includes('marketing')) return 'marketing';
-        if (purposes.includes('manual')) return 'default'; // In Pro, map manual to default (high quality)
-        if (purposes.includes('meeting')) return 'meeting'; // In Pro, meeting maps to default or specific if added later
-        if (purposes.includes('ideation')) return 'marketing';
+        if (purposes.includes('manual')) return 'default'; 
+        if (purposes.includes('meeting')) return 'meeting';
+        if (purposes.includes('ideation')) return 'organize_thought'; // Map old ideation to new organize
         if (purposes.includes('internal_doc')) return 'default';
         return 'default';
     }
@@ -1000,6 +1165,15 @@
             routeSteps.push('<span class="route-arrow">→</span><span class="route-step">2. Geminiで調査</span>');
             routeSteps.push('<span class="route-arrow">→</span><span class="route-step">3. GPTで文章化</span>');
             routeSteps.push('<span class="route-arrow">→</span><span class="route-step">4. Nanobananaでチラシ化</span>');
+        } else if (purposes.includes('customer_msg')) {
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">2. GPTで下書き</span>');
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">3. Geminiで敬語チェック</span>');
+        } else if (purposes.includes('organize_thought')) {
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">2. GPTと壁打ち</span>');
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">3. Nanobananaで図解</span>');
+        } else if (purposes.includes('existing_doc')) {
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">2. NotebookLMに読ませる</span>');
+            routeSteps.push('<span class="route-arrow">→</span><span class="route-step">3. GPTで再編集</span>');
         } else {
             routeSteps.push('<span class="route-arrow">→</span><span class="route-step">2. Geminiで情報収集</span>');
             routeSteps.push('<span class="route-arrow">→</span><span class="route-step">3. GPTでタスク処理</span>');
