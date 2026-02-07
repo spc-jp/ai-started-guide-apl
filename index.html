@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIスタートガイド - 中小企業向け導入診断</title>
+    <title>業務効率化スタートガイド - 中小企業向け導入診断</title>
     <style>
         :root {
             --primary: #2563EB; /* Trustworthy Blue */
@@ -14,17 +14,8 @@
             --text-sub: #6B7280;
             --border: #E5E7EB;
             --accent: #F59E0B; /* Amber for highlight */
-            --pro-color: #4F46E5; /* Indigo for Pro */
-            --pro-bg: #EEF2FF;
             --radius: 12px;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        /* Pro Mode Variables */
-        body.pro-mode {
-            --primary: #4F46E5; /* Indigo */
-            --primary-hover: #4338CA;
-            --bg-color: #F8FAFC;
         }
 
         * {
@@ -38,7 +29,6 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            transition: background-color 0.3s;
         }
 
         /* Layout */
@@ -61,11 +51,6 @@
             align-items: center;
             gap: 15px;
             border-bottom: 4px solid transparent;
-            transition: all 0.3s;
-        }
-
-        body.pro-mode header {
-            border-bottom-color: var(--accent);
         }
 
         /* Header Layout Components */
@@ -109,24 +94,6 @@
             font-size: 0.9rem;
             color: var(--text-sub);
             margin-top: 4px;
-        }
-
-        .pro-badge {
-            background: var(--accent);
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            display: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        body.pro-mode .pro-badge {
-            display: inline-block;
         }
 
         .reset-btn {
@@ -246,27 +213,6 @@
             background: #eff6ff;
         }
 
-        .btn-pro {
-            background: linear-gradient(135deg, #4F46E5, #7C3AED);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
-            border: 1px solid transparent;
-        }
-        
-        .btn-pro:hover {
-            opacity: 0.9;
-        }
-
-        body.pro-mode .btn-pro {
-            background: white;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-
         /* Right Column (Results) */
         .result-zone {
             display: flex;
@@ -286,15 +232,16 @@
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            display: none; /* Hidden by default */
+            display: flex;
             align-items: center;
             gap: 6px;
             font-size: 0.9rem;
             color: var(--text-main);
         }
-
-        body.pro-mode .print-btn {
-            display: flex;
+        
+        .print-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
         }
 
         .placeholder-message {
@@ -343,12 +290,6 @@
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: normal;
-        }
-        
-        body.pro-mode .tag {
-            background: #EEF2FF;
-            color: #4338CA;
-            border: 1px solid #C7D2FE;
         }
 
         .card-body h3 {
@@ -548,8 +489,8 @@
         
         <div class="header-center" onclick="resetApp()">
             <div class="header-title">
-                <h1>AIスタートガイド <span class="pro-badge">PRO</span></h1>
-                <p>何から始めるかを、5分で決める</p>
+                <h1>業務効率化スタートガイド</h1>
+                <p>AI活用、何から始めるかを5分で決める</p>
             </div>
         </div>
 
@@ -602,9 +543,6 @@
             <div class="action-buttons">
                 <button class="btn btn-primary" onclick="diagnose()">診断して提案を見る</button>
                 <button class="btn btn-secondary" onclick="copyAllResults()">結果をまとめてコピー</button>
-                <button class="btn btn-pro" id="proToggleBtn" onclick="toggleProMode()">
-                    <span>✨</span> Pro版を試す（無料デモ）
-                </button>
             </div>
         </div>
 
@@ -623,8 +561,6 @@
 <script>
     // --- Data Definition ---
     
-    let isProMode = false;
-
     // Tools Base Info
     const toolsInfo = {
         gpt: { name: "ChatGPT", role: "秘書・ライター役" },
@@ -633,251 +569,9 @@
         nanobanana: { name: "Nanobanana", role: "資料作成・チラシ" }
     };
 
-    // --- Standard Scenarios (Simplified) ---
+    // --- Scenarios (Advanced & Detailed) ---
+    // Previously "Pro" scenarios, now standard.
     const scenarios = {
-        sns: {
-            gpt: {
-                scenes: ["SNS投稿文（キャプション）の作成", "炎上リスクのチェック", "ハッシュタグのアイデア出し"],
-                prompts: [
-                    "この写真をInstagramに投稿します。ターゲットは[20代女性]。親しみやすく、かつ商品の魅力が伝わる文章を3案作成して。",
-                    "以下の投稿文について、誰かを傷つける表現やリスクがないかチェックし、あれば修正案を出して。",
-                    "[キーワード]に関連する、Instagramで人気が出そうなハッシュタグを20個リストアップして。"
-                ]
-            },
-            gemini: {
-                scenes: ["SNSの流行り（トレンド）調査", "ライバル企業の投稿分析", "人気投稿者のリサーチ"],
-                prompts: [
-                    "現在[業界]で話題になっているSNSの流行り言葉と、その背景を教えて。",
-                    "競合アカウント[URL]の最近の投稿を見て、特に「いいね」が多い投稿の特徴を3つ教えて。",
-                    "[商品]を紹介するのに適した、フォロワー数千〜数万人のインフルエンサーの特徴を提案して。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["過去の投稿データの分析", "自社ブランドのルール学習", "よくある質問の回答集作成"],
-                prompts: [
-                    "アップロードした過去の投稿データから、反応が良かった投稿の共通点を分析して。",
-                    "このブランドルールに基づき、新しい投稿案がお店の雰囲気に合っているか評価して。",
-                    "SNSに来るよくある質問をもとに、自動返信用の回答テンプレートを作成して。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["インスタ用画像のデザイン", "ストーリーズ用背景作成", "わかりやすい図解の作成"],
-                prompts: [
-                    "Instagramで目を引く、[商品]を配置したおしゃれなカフェ風の画像を作成して。",
-                    "スマホ全画面（ストーリーズ）の背景に使える、シンプルで高級感のある柄の画像を生成して。",
-                    "「5つのメリット」を解説するスライド投稿用の、わかりやすい図解の下書きを作って。"
-                ]
-            }
-        },
-        marketing: {
-            gpt: {
-                scenes: ["キャッチコピーの作成", "メルマガの文章作成", "お客様の悩み分析"],
-                prompts: [
-                    "ターゲット層は[30代主婦]です。[商品名]の魅力を伝えるキャッチコピーを10個考えてください。",
-                    "今月のキャンペーン告知のInstagramの投稿文案を、親しみやすい言葉で作ってください。",
-                    "この商品のターゲットとなるお客様が抱えている、隠れた悩みを5つ挙げてください。"
-                ]
-            },
-            gemini: {
-                scenes: ["ライバル企業のリサーチ", "最新の流行調査", "地域情報の収集"],
-                prompts: [
-                    "[業界名]における最新の流行と、成功している企業の事例を3つ教えて。",
-                    "[地域名]で[業種]を探している人が重視するポイントを表形式でまとめて。",
-                    "以下のWebサイト[URL]のライバルとなるサービスを探して、特徴を比較して。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["マーケティング本の要約", "お客様アンケートの分析", "過去の広告データの蓄積"],
-                prompts: [
-                    "アップロードしたお客様アンケートから、最も多い要望を抜き出して。",
-                    "この資料の要点を3行で短くまとめて。",
-                    "過去のキャンペーン結果にもとづいて、次回の改善案を提案して。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["チラシのデザイン案作成", "SNS用画像の生成", "販促資料の下書き作成"],
-                prompts: [
-                    "春のキャンペーン用チラシのデザイン構成案を作成して。",
-                    "Instagramで目を引く[商品画像]の構図アイデアを5つ出して。",
-                    "集客用の商品紹介ページ（LP）の画面構成案を作って。"
-                ]
-            }
-        },
-        customer_msg: {
-            gpt: {
-                scenes: ["お客様へのメール代筆", "LINE公式アカウントの返信", "提案書のあいさつ文作成"],
-                prompts: [
-                    "お客様（[お名前]様）へ、新商品[商品名]のご案内メールを作成して。親しみやすく、売り込み感が出すぎないようにして。",
-                    "LINE公式アカウントで、週末のイベント告知メッセージを書いて。絵文字を使って楽しそうな雰囲気で、文字数は200文字以内。",
-                    "見積書を送る際のメール本文を作成して。丁寧な感謝の言葉と、不明点があれば連絡ほしい旨を含めて。"
-                ]
-            },
-            gemini: {
-                scenes: ["敬語やビジネスマナーの確認", "伝わりやすい言葉への言い換え", "季節の挨拶文検索"],
-                prompts: [
-                    "この文章[文章]を、より丁寧なビジネス敬語に直して。",
-                    "「検討します」という言葉を、もっとポジティブにお客様に伝える言い回しを3つ教えて。",
-                    "10月にお客様に送る手紙の冒頭に使える、季節の挨拶文を3つ教えて。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["過去の問合せ履歴の確認", "商品カタログの内容確認", "FAQの参照"],
-                prompts: [
-                    "過去のやり取り履歴から、このお客様が以前気にしていたポイントを探して。",
-                    "商品カタログ（PDF）に基づいて、この商品の保証期間についてお客様に説明する文章を作って。",
-                    "よくある質問集をもとに、この質問に対する回答案を作成して。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["メッセージに添える画像作成", "LINEのリッチメニュー作成", "提案書の表紙作成"],
-                prompts: [
-                    "LINEのメッセージと一緒に送る、イベント告知用の正方形の画像イメージを作って。",
-                    "LINE公式アカウントのリッチメニュー（ボタン）のデザイン案を考えて。",
-                    "提案書の表紙画像を、誠実でクリーンなイメージで生成して。"
-                ]
-            }
-        },
-        organize_thought: {
-            gpt: {
-                scenes: ["頭の中のモヤモヤを言語化", "アイデアの壁打ち相手", "話の構成を整理"],
-                prompts: [
-                    "今、[悩み]について悩んでいます。壁打ち相手になって、私の考えが整理できるような質問を投げかけて。",
-                    "以下の箇条書きのメモを、論理的な文章に書き直して。\n[メモ]",
-                    "新しいサービスのアイデア[アイデア]について、良い点と懸念点を客観的に挙げて。"
-                ]
-            },
-            gemini: {
-                scenes: ["関連情報の検索と整理", "マインドマップ的な構造化", "類語や表現の検索"],
-                prompts: [
-                    "[キーワード]に関連する概念を、マインドマップのように構造化してリストアップして。",
-                    "この自分の考え[考え]を、もっとカッコいいキャッチコピー風に言い換えて。",
-                    "このテーマについて、一般的にはどのような分類がされているか調べて教えて。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["自分の過去メモの整理", "日記や日報の振り返り", "知識の体系化"],
-                prompts: [
-                    "アップロードした過去のメモの中から、[テーマ]に関連するアイデアを全て抜き出して。",
-                    "私の日報データを分析して、最近の関心事や課題の傾向を教えて。",
-                    "この資料の内容を、他人に説明できるように3つのポイントで整理して。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["アイデアの図解化", "イメージボード作成", "思考の可視化"],
-                prompts: [
-                    "私のこの複雑なアイデア[アイデア]を、一枚の絵で表現するためのラフ案を描いて。",
-                    "このコンセプトを表すムードボード（イメージ画像集）の構成案を出して。",
-                    "思考の流れを図解するための、矢印や枠の配置案を考えて。"
-                ]
-            }
-        },
-        existing_doc: {
-            gpt: {
-                scenes: ["資料のテキスト化と要約", "PDFの内容を元にしたメール作成", "古い資料の書き直し"],
-                prompts: [
-                    "この資料のテキスト[テキスト]を元に、要点を3つに絞ったメール文面を作成して。",
-                    "古い資料の文章を、現代風のわかりやすい表現にリライトして。",
-                    "この議事録の内容を、ブログ記事形式に書き直して。"
-                ]
-            },
-            gemini: {
-                scenes: ["資料内の事実確認", "関連データの補強", "最新情報との比較"],
-                prompts: [
-                    "この資料に書かれているデータ（2020年）を、最新の数値がないか調べて更新して。",
-                    "この資料の主張を裏付けるような、信頼できる統計データを検索して。",
-                    "このPDFの内容と矛盾するような最新ニュースがないか確認して。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["PDF資料との対話（Q&A）", "大量の資料からの検索", "資料の音声解説化"],
-                prompts: [
-                    "アップロードしたPDF資料について質問です。[キーワード]についてはどこに書かれていますか？",
-                    "この大量の資料全体を通して、最も重要な結論は何ですか？",
-                    "この資料の内容を、ラジオ番組風に解説する台本を作って（NotebookLMの音声機能用）。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["資料の図版のリメイク", "表紙の再デザイン", "スライド化"],
-                prompts: [
-                    "この文章ばかりの資料を、見やすいスライドにするための構成案（全5ページ）を作って。",
-                    "この資料の内容を表す、わかりやすいアイコンや図のイメージを提案して。",
-                    "資料の表紙を、もっと現代的でスタイリッシュなデザインにするための指示を出して。"
-                ]
-            }
-        },
-        meeting: {
-            gpt: {
-                scenes: ["議事録の要約・整形", "会議の目次（アジェンダ）作成", "決定事項のタスク化"],
-                prompts: [
-                    "以下の乱雑なメモを、決定事項と「誰が何をするか」がわかる議事録に書き直して。\n[メモを貼り付け]",
-                    "来週のプロジェクト定例会議の目次案を作成して。時間は1時間。",
-                    "この議事録から、誰がいつまでに何をすべきか（タスク）を抜き出して。"
-                ]
-            },
-            gemini: {
-                scenes: ["会議中の不明語句検索", "業界ニュースの共有", "関連情報のリアルタイム検索"],
-                prompts: [
-                    "今の会議で出た[専門用語]について、中学生でもわかるように解説して。",
-                    "[トピック]に関する直近1週間のニュースを要約して。",
-                    "このテーマで議論する際に気をつけるべきリスクを検索して。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["過去の全議事録の検索", "プロジェクト経緯の確認", "担当者ごとの発言抽出"],
-                prompts: [
-                    "過去の議事録の中から、[プロジェクト名]に関する決定事項を日付順で並べて。",
-                    "前回の会議で[担当者名]さんが提案していた内容は具体的にどういうものだった？",
-                    "このプロジェクトの課題点として挙がっているものを全てリストアップして。"
-                ]
-            },
-            nanobanana: {
-                scenes: ["会議資料の図解化", "スライド構成案", "ホワイトボードの清書"],
-                prompts: [
-                    "今の議論の流れをフローチャート（流れ図）にするための構成を考えて。",
-                    "次回の会議で使うスライドの目次構成（全10枚）を提案して。",
-                    "議論の結果を1枚の図で説明するための下書きを作って。"
-                ]
-            }
-        },
-        default: {
-            gpt: {
-                scenes: ["メールの返信作成", "文章の校正・添削", "日報の作成"],
-                prompts: [
-                    "取引先への謝罪メールを、誠実さが伝わるように作成して。",
-                    "以下の文章を、よりビジネスらしく、短くわかりやすい表現に修正して。",
-                    "今日の業務内容（箇条書き）から、日報の文章を作成して。"
-                ]
-            },
-            gemini: {
-                scenes: ["情報の真偽確認", "一般的な調べ物", "Google Workspace連携"],
-                prompts: [
-                    "[用語]とはどういう意味ですか？具体例を交えて教えて。",
-                    "Googleスプレッドシートの関数で、[やりたいこと]を実現する式を教えて。",
-                    "Gmailの下書きにある[件名]のメールを要約して（Workspace連携時）。"
-                ]
-            },
-            notebooklm: {
-                scenes: ["社内マニュアルの学習", "大量のPDFの要約", "Q&Aボットとして利用"],
-                prompts: [
-                    "アップロードした就業規則に基づき、有給休暇の申請手順を教えて。",
-                    "このPDF資料の要点を5つの箇条書きにして。",
-                    "この資料によると、緊急時の連絡先はどこ？"
-                ]
-            },
-            nanobanana: {
-                scenes: ["プレゼン資料作成", "画像生成", "視覚的な説明資料"],
-                prompts: [
-                    "プレゼン資料の表紙デザインのアイデアを3つ出して。",
-                    "説明用のアイコン画像のイメージを言葉で表現して。",
-                    "初心者向けの操作マニュアルの構成案を作って。"
-                ]
-            }
-        }
-    };
-
-    // --- PRO Scenarios (Advanced & Detailed) ---
-    // 初心者にもわかるように専門用語を平易な言葉に言い換え・補足
-    const proScenarios = {
         sns: {
             gpt: {
                 scenes: [
@@ -1086,29 +780,6 @@
 
     // --- Main Functions ---
 
-    function toggleProMode() {
-        isProMode = !isProMode;
-        const body = document.body;
-        const btn = document.getElementById('proToggleBtn');
-        const badge = document.querySelector('.pro-badge');
-
-        if (isProMode) {
-            body.classList.add('pro-mode');
-            btn.innerHTML = '<span>↩️</span> 無料版に戻す';
-            showToast('Proモードに切り替えました！より高度な提案が可能です');
-        } else {
-            body.classList.remove('pro-mode');
-            btn.innerHTML = '<span>✨</span> Pro版を試す（無料デモ）';
-            showToast('無料版に戻りました');
-        }
-        
-        // If results exist, refresh them
-        const resultZone = document.getElementById('resultZone');
-        if (!resultZone.querySelector('.placeholder-message')) {
-            diagnose(); // Re-run diagnosis with new mode
-        }
-    }
-
     function diagnose() {
         const resultZone = document.getElementById('resultZone');
         
@@ -1120,16 +791,15 @@
 
         // 2. Determine Logic & Data Source
         const scenarioKey = getScenarioKey(purposes);
-        // Select Data based on Mode
-        const dataSource = isProMode ? proScenarios : scenarios;
-        const currentData = dataSource[scenarioKey] || dataSource['default'];
+        // Always use Pro scenarios
+        const currentData = scenarios[scenarioKey] || scenarios['default'];
 
         // 3. Build HTML
         let html = '';
         
         // Header for Results
         html += `<div class="result-header fade-in" style="margin-bottom:15px;">
-                    <h2 style="font-size:1.2rem; color:var(--text-sub);">診断結果 ${isProMode ? '<span class="tag">PRO</span>' : ''}</h2>
+                    <h2 style="font-size:1.2rem; color:var(--text-sub);">診断結果</h2>
                     <button class="print-btn" onclick="window.print()">
                         <span>🖨️</span> PDF保存/印刷
                     </button>
@@ -1183,7 +853,7 @@
         html += `
         <div class="card fade-in">
             <div class="card-header">
-                <div class="card-title">🚀 今日のおすすめルート</div>
+                <div class="card-title">🚀 あなたに最適な活用ステップ</div>
             </div>
             <div class="card-body">
                 <div class="route-flow">
@@ -1197,15 +867,13 @@
         
         tools.forEach(toolKey => {
             const info = toolsInfo[toolKey];
-            // Pro data might fallback to default if key missing in specific scenario
             let data = currentData[toolKey];
-            if (!data && isProMode) data = proScenarios['default'][toolKey];
             if (!data) data = scenarios['default'][toolKey];
 
             // Generate Prompt Inputs
             const promptInputs = data.prompts.map((p, idx) => `
                 <div class="prompt-box">
-                    <span class="prompt-label">プロンプト案 ${idx + 1} ${isProMode ? '(詳細版)' : ''}</span>
+                    <span class="prompt-label">プロンプト案 ${idx + 1} (詳細版)</span>
                     <textarea class="prompt-text" readonly>${p}</textarea>
                 </div>
             `).join('');
@@ -1220,7 +888,7 @@
                     <button class="copy-card-btn" onclick="copyCard('card-${toolKey}')">このカードをコピー</button>
                 </div>
                 <div class="card-body">
-                    <h3>向いているシーン</h3>
+                    <h3>活用できるシーン</h3>
                     <ul class="scene-list">
                         ${sceneList}
                     </ul>
@@ -1272,7 +940,7 @@
             </div>
         `;
 
-        // If in Pro mode, maybe keep it? Or reset? Let's keep mode but reset form.
+        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
         showToast('入力内容をリセットしました');
     }
@@ -1316,7 +984,7 @@
         const scenes = Array.from(card.querySelectorAll('.scene-list li')).map(li => `・${li.innerText}`).join('\n');
         const prompts = Array.from(card.querySelectorAll('.prompt-text')).map((t, i) => `[プロンプト${i+1}]\n${t.value}`).join('\n\n');
 
-        const text = `【ツール：${title}】${isProMode ? ' [PRO]' : ''}\n\n■向いているシーン\n${scenes}\n\n■おすすめプロンプト\n${prompts}`;
+        const text = `【ツール：${title}】\n\n■活用できるシーン\n${scenes}\n\n■おすすめプロンプト\n${prompts}`;
         copyToClipboard(text);
     }
 
@@ -1327,11 +995,11 @@
             return;
         }
 
-        let fullText = `【AI導入スタートガイド 診断結果${isProMode ? ' - PRO' : ''}】\n\n`;
+        let fullText = "【AI導入スタートガイド 診断結果】\n\n";
 
         // Route
         const route = resultZone.querySelector('.route-flow')?.innerText.replace(/\n/g, ' ');
-        if (route) fullText += `■今日のおすすめルート\n${route}\n\n-------------------\n\n`;
+        if (route) fullText += `■あなたに最適な活用ステップ\n${route}\n\n-------------------\n\n`;
 
         // Tools
         const cards = resultZone.querySelectorAll('[id^="card-"]');
