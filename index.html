@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>業務効率化スタートガイド - 中小企業向け導入診断</title>
+    <title>AIスタートガイド - 中小企業向け導入診断</title>
     <style>
         :root {
             --primary: #2563EB; /* Trustworthy Blue */
@@ -43,7 +43,7 @@
 
         header {
             background: var(--card-bg);
-            padding: 15px 30px;
+            padding: 20px 30px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             display: flex;
@@ -55,24 +55,8 @@
 
         /* Header Layout Components */
         .header-left {
-            flex: 0 0 auto;
             display: flex;
             align-items: center;
-        }
-
-        .header-logo {
-            height: 50px; /* Adjust logo size */
-            width: auto;
-            object-fit: contain;
-        }
-
-        .header-center {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
             cursor: pointer;
         }
 
@@ -80,7 +64,6 @@
             flex: 0 0 auto;
             display: flex;
             justify-content: flex-end;
-            min-width: 100px; /* Balance spacing */
         }
 
         .header-title h1 {
@@ -451,17 +434,12 @@
             }
             header {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 gap: 15px;
             }
-            .header-left, .header-center, .header-right {
+            .header-left, .header-right {
                 width: 100%;
-                justify-content: center;
-                text-align: center;
-            }
-            .header-logo {
-                height: 40px;
-                margin: 0 auto;
+                justify-content: flex-start;
             }
             .reset-btn {
                 width: 100%;
@@ -483,14 +461,10 @@
 
 <div class="container">
     <header>
-        <div class="header-left">
-            <img src="rogo.jpg" alt="Smile Plus Consulting" class="header-logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-weight:bold; color:var(--primary);\'>Smile Plus<br>Consulting</span>'">
-        </div>
-        
-        <div class="header-center" onclick="resetApp()">
+        <div class="header-left" onclick="resetApp()">
             <div class="header-title">
-                <h1>業務効率化スタートガイド</h1>
-                <p>AI活用、何から始めるかを5分で決める</p>
+                <h1>AIスタートガイド</h1>
+                <p>何から始めるかを5分で決める</p>
             </div>
         </div>
 
